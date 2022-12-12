@@ -32,7 +32,7 @@ void calibrate()
     Serial.println("Put on black within 5sec");
     delay(5000);
     int sensorReadingsAnalog1[numOfSensors];
-    readDataAnalog(sensorReadingsAnalog);
+    readDataAnalog(sensorReadingsAnalog1);
     int x = (min + max) / 2;
 
     Serial.println("Put on white within 5sec");
