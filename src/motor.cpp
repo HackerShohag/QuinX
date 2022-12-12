@@ -87,8 +87,7 @@ void hardBrake()
 {
     backward();
     delay(150);
-    digitalWrite(ena, LOW);
-    digitalWrite(enb, LOW);
+    stop();
 }
 
 void runMotor(int motorspeeda, int motorspeedb)
