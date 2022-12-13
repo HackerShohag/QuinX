@@ -3,6 +3,12 @@
 #include "irsensor.h"
 #include "sonar.h"
 
+int sonarEcho1 = 41;
+int sonarTrig1 = 43;
+
+int sonarEcho2 = 37;
+int sonarTrig2 = 35;
+
 float Kp = 0.07; // related to the proportional control term;
               // change the value by trial-and-error (ex: 0.07).
 float Ki = 0.0008; // related to the integral control term;
@@ -26,13 +32,15 @@ void setup()
   // put your setup code here, to run once:
   Serial.begin(9600);
   // sensorSetup();
-  calibrate();
+  // calibrate();
   // boolean Ok = false;
   // while (Ok == false)
   // {              // the main function won't start until the robot is calibrated
   //   calibrate(); // calibrate the robot for 10 seconds
   //   Ok = true;
   // }
+  setupSonar(sonarEcho1, sonarTrig1);
+  setupSonar(sonarEcho2, sonarTrig2);
   stop(); // stop the motors
 }
 
@@ -82,6 +90,13 @@ void loop()
   // delay(2000);
   // hardBrake();
   // delay(5000);
-  printBinarySensorReadingsAnalog();
+  // printBinarySensorReadingsAnalog();
   // printBinarySensorReadingsDigital();
+  Serial.print("Distance 1: ");
+  Serial.print(getDistance(sonarEcho1, sonarTrig1));
+   
+  Serial.print("\tDistance 2: ");
+  Serial.print(getDistance(sonarEcho2, sonarTrig2));
+  Serial.println();
+  delay(250);
 }
