@@ -22,8 +22,7 @@ void readDataDigital(int sensorReadingsDigital[])
 {
     for (int i = 0; i < numOfSensors; i++)
     {
-        if (analogRead(sensorPins[i]) > sensorThreshold)
-            sensorReadingsDigital[i] = 1;
+        sensorReadingsDigital[i] = digitalRead(sensorPins[i]);
     }
 }
 
@@ -32,7 +31,7 @@ void calibrate()
     Serial.println("Put on black within 5sec");
     delay(5000);
     int sensorReadingsAnalog1[numOfSensors];
-    readDataAnalog(sensorReadingsAnalog1);
+    readDataAnalog(sensorReadingsAnalog);
     int x = (min + max) / 2;
 
     Serial.println("Put on white within 5sec");
@@ -68,11 +67,31 @@ void printBinarySensorReadingsAnalog()
     delay(250);
 }
 
+void printBinarySensorReadingsDigital()
+{
+    for (int i = 0; i < numOfSensors; i++)
+    {
+        Serial.print(digitalRead(sensorPins[i]));
+        Serial.print(" ");
+    }
+    Serial.print("\tThreshold: ");
+    Serial.println(sensorThreshold);
+    delay(250);
+}
+
 int getPosition(int sensorReadingsAnalog[])
 {
     int position = 0;
+    int v = 0;
     readDataAnalog(sensorReadingsAnalog);
     for (int i = 0; i < numOfSensors; i++)
-        position += sensorReadingsAnalog[i] * i * 1000;
-    return position;
+    {
+        if (sensorReadingsAnalog[i] > sensorThreshold)
+        {
+            position += i * 1000;
+            v++;
+        }
+    }
+    if (v==0) return 0;
+    return position/v;
 }

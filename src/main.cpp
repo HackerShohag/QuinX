@@ -1,12 +1,13 @@
 #include <Arduino.h>
 #include "motor.h"
 #include "irsensor.h"
+#include "sonar.h"
 
-float Kp = 0; // related to the proportional control term;
+float Kp = 0.07; // related to the proportional control term;
               // change the value by trial-and-error (ex: 0.07).
-float Ki = 0; // related to the integral control term;
+float Ki = 0.0008; // related to the integral control term;
               // change the value by trial-and-error (ex: 0.0008).
-float Kd = 0; // related to the derivative control term;
+float Kd = 0.6; // related to the derivative control term;
               // change the value by trial-and-error (ex: 0.6).
 int P;
 int I;
@@ -23,9 +24,9 @@ const uint8_t basespeedb = 100;
 void setup()
 {
   // put your setup code here, to run once:
-  // Serial.begin(9600);
+  Serial.begin(9600);
   // sensorSetup();
-  // calibrate();
+  calibrate();
   // boolean Ok = false;
   // while (Ok == false)
   // {              // the main function won't start until the robot is calibrated
@@ -39,6 +40,8 @@ void PID_control()
 {
   int sensorData[8];
   int position = getPosition(sensorData); // read the current position
+  Serial.print("\t\t\t\t\tPosition: ");
+  Serial.println(position);
   int error = 3500 - position;            // 3500 is the ideal position (the centre)
 
   P = error;
@@ -79,8 +82,6 @@ void loop()
   // delay(2000);
   // hardBrake();
   // delay(5000);
-  Serial.begin(9600);
-  printBinarySensorReadings();
-
-  PID_control();
+  printBinarySensorReadingsAnalog();
+  // printBinarySensorReadingsDigital();
 }
