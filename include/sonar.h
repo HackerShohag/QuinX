@@ -5,4 +5,5 @@
 void setupSonar(int echoPin, int trigPin);
 int getDistance(int echoPin, int trigPin);
 
+bool hasWall();
 #endif

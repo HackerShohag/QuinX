@@ -2,6 +2,7 @@
 #include "motor.h"
 #include "irsensor.h"
 #include "sonar.h"
+#include "junction.h"
 
 int sonarEcho1 = 41;
 int sonarTrig1 = 43;
