@@ -34,12 +34,12 @@ void TJunction(){
 
 }
 String plusJunction(String inputstr){
-    if(inputstr==s8){
-       forward();
-       hardBrake(150);
-       return s8;
-    }
-    return "";
+  ///need to be calibrated
+   //hardBrake(150);
+   forward();
+   //turnLeft();
+   //turnRight();
+   hardBrake(150);
 }
 bool isStartDest(){
 
@@ -62,17 +62,8 @@ void calibratemovement(){
     //hardBrake(150);
 }
 void fullWhite(String inputstr){
-    if(f==0 && inputstr==s7){
-    forward();
-    hardBrake(150);
-    f=1;
-    }
-    else if(inputstr==s7){
         backward();
         hardBrake(150);
-        f=0;
-      
-    }
   
 }
 

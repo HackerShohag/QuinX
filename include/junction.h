@@ -6,6 +6,7 @@ void TJunction();
 String plusJunction(String inputstr);
 void LRight(String inputstr);
 void LLeft(String inputstr);
+void fullWhite(String inputstr);
 void FinalDest();
 bool isStartDest();
 void lineBreak();
