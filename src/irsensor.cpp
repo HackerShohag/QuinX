@@ -107,16 +107,23 @@ int getPosition(int sensorReadingsAnalog[])
 
     }
     Serial.println(inputstr);
+
     LRight(inputstr);
     LLeft(inputstr);
     if((prevstr=="00011000" || prevstr=="00111000" || prevstr=="00011100" || prevstr=="00111100" )&& inputstr=="00000000"){
        lineBreak();
     }
+    else if((prevstr=="00011000" || prevstr=="00111000" || prevstr=="00011100" || prevstr=="00111100" )&& inputstr=="11111111"){
+       plusJunction(inputstr);
+    }
     else if(prevstr=="11111111" && inputstr=="00000000"){
         TJunction();
     }
+    else if(inputstr=="00000000"){
+        fullWhite(inputstr);
+    }
     else if(prevstr=="11111111" && inputstr=="11111111" && prevstr2=="11111111"){
-        FinalDest();
+       FinalDest();
     }
      
     //  if(prevstr=="11111111" && inputstr=="00011000"){
