@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include "irsensor.h"
+#include "junction.h"
+#include <string.h>
 
 const int numOfSensors = 8;
 int max = 0, min = 1200;
@@ -63,7 +65,7 @@ void printBinarySensorReadingsAnalog()
         Serial.print(" ");
     }
     Serial.print("\tThreshold: ");
-    Serial.println(sensorThreshold);
+    Serial.print(sensorThreshold);
     delay(250);
 }
 
@@ -83,15 +85,58 @@ int getPosition(int sensorReadingsAnalog[])
 {
     int position = 0;
     int v = 0;
+    String inputstr="";
     readDataAnalog(sensorReadingsAnalog);
-    for (int i = 0; i < numOfSensors; i++)
+    String prevstr="";
+    String prevstr2="";
+    for (int i = 0; i <numOfSensors; i++)
     {
         if (sensorReadingsAnalog[i] > sensorThreshold)
         {
-            position += i * 1000;
+            position +=i* 1000;
             v++;
+            inputstr+='1';
         }
+        else inputstr+='0';
     }
+   Serial.println();
+    for(int i=0;i<numOfSensors/2;i++){
+        char temp=inputstr[i];
+        inputstr[i]=inputstr[numOfSensors-i-1];
+        inputstr[numOfSensors-i-1]=temp;
+
+    }
+    Serial.println(inputstr);
+    LRight(inputstr);
+    LLeft(inputstr);
+    if((prevstr=="00011000" || prevstr=="00111000" || prevstr=="00011100" || prevstr=="00111100" )&& inputstr=="00000000"){
+       lineBreak();
+    }
+    else if(prevstr=="11111111" && inputstr=="00000000"){
+        TJunction();
+    }
+    else if(prevstr=="11111111" && inputstr=="11111111" && prevstr2=="11111111"){
+        FinalDest();
+    }
+     
+    //  if(prevstr=="11111111" && inputstr=="00011000"){
+    //     calibratemovement();//if there's a plus junction and we need to calibrate 
+    // }
+    prevstr2=prevstr;
+    prevstr=inputstr;
+
+    // Serial.print(" Position: ");
+    // Serial.print(position);
+    //    Serial.print(" v: ");
+    // Serial.print(v);
+    // if(v==0)   Serial.print("\tposition/v=0");
+    // if(v==1 && position==0)   Serial.print("\tposition/v=250");
+    // else {Serial.print("\tposition/v: ");
+    // Serial.print(position/v);
+    // }
+    // Serial.println();
+     if(v==1 && position==0)   return 250;
     if (v==0) return 0;
     return position/v;
+    
 }

@@ -3,6 +3,11 @@
 #include <Arduino.h>
 
 void TJunction();
-void plusJunction();
-bool isFinalDest();
+String plusJunction(String inputstr);
+void LRight(String inputstr);
+void LLeft(String inputstr);
+void FinalDest();
+bool isStartDest();
+void lineBreak();
+void calibratemovement();
 #endif
