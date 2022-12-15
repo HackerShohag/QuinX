@@ -26,12 +26,3 @@ int getDistance(int echoPin, int trigPin)
     return distance;
 }
 
-bool hasWall()
-{
-  int left = 0, right = 0;
-  right=getDistance();
-  left=getDistance();
-  if(right>2 && right<30)return true;
-  if(left>2 && left<30)return true;
-  return false;
-}

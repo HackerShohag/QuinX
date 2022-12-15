@@ -23,10 +23,10 @@ int D;
 int lastError = 0;
 boolean onoff = false;
 
-const uint8_t maxspeeda = 150;
-const uint8_t maxspeedb = 150;
-const uint8_t basespeeda = 100;
-const uint8_t basespeedb = 100;
+const uint8_t maxspeeda = 120;
+const uint8_t maxspeedb = 120;
+const uint8_t basespeeda = 80;
+const uint8_t basespeedb = 80;
 
 void setup()
 {
@@ -49,8 +49,8 @@ void PID_control()
 {
   int sensorData[8];
   int position = getPosition(sensorData); // read the current position
-  Serial.print("\t\t\t\t\tPosition: ");
-  Serial.println(position);
+  // Serial.print("\t\t\t\t\tPosition: ");
+  // Serial.println(position);
   int error = 3500 - position;            // 3500 is the ideal position (the centre)
 
   P = error;
@@ -85,19 +85,19 @@ void PID_control()
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
   // printBinarySensorReadings();
   // forward();
   // delay(2000);
   // hardBrake();
   // delay(5000);
-  // printBinarySensorReadingsAnalog();
+  //printBinarySensorReadingsAnalog();
   // printBinarySensorReadingsDigital();
-  Serial.print("Distance 1: ");
-  Serial.print(getDistance(sonarEcho1, sonarTrig1));
+  // Serial.print("Distance 1: ");
+  // Serial.print(getDistance(sonarEcho1, sonarTrig1));
    
-  Serial.print("\tDistance 2: ");
-  Serial.print(getDistance(sonarEcho2, sonarTrig2));
-  Serial.println();
-  delay(250);
+  // Serial.print("\tDistance 2: ");
+  // Serial.print(getDistance(sonarEcho2, sonarTrig2));
+  // Serial.println();
+  // delay(250);
+  PID_control();
 }

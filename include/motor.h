@@ -10,7 +10,7 @@ void runMotor(int motorspeeda, int motorspeedb);
 void turnLeft();
 void turnRight();
 
-void hardBrake();
+void hardBrake(int delayval);
 void stop();
 
 #endif

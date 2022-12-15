@@ -83,10 +83,10 @@ void stop()
     digitalWrite(enb, LOW);
 }
 
-void hardBrake()
+void hardBrake(int delayval)
 {
     backward();
-    delay(150);
+    delay(delayval);
     digitalWrite(ena, LOW);
     digitalWrite(enb, LOW);
 }
