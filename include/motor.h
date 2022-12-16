@@ -9,7 +9,8 @@ void backward();
 void runMotor(int motorspeeda, int motorspeedb);
 void turnLeft();
 void turnRight();
-
+void HardturnRight();
+void HardturnLeft();
 void hardBrake(int delayval);
 void stop();
 

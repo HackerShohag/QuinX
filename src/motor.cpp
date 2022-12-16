@@ -77,6 +77,34 @@ void turnRight()
     digitalWrite(motor2pin2, LOW);
 }
 
+void HardturnRight()
+{
+    // PWM pin for speed control
+    digitalWrite(ena, HIGH);
+    digitalWrite(enb, HIGH);
+
+    // motor singals
+    digitalWrite(motor1pin1, HIGH);
+    digitalWrite(motor1pin2, LOW);
+
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, HIGH);
+}
+
+void HardturnLeft()
+{
+    // PWM pin for speed control
+    digitalWrite(ena, HIGH);
+    digitalWrite(enb, HIGH);
+
+    // motor singals
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, HIGH);
+
+    digitalWrite(motor2pin1, HIGH);
+    digitalWrite(motor2pin2, LOW);
+}
+
 void stop()
 {
     digitalWrite(ena, LOW);

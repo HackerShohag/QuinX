@@ -4,8 +4,7 @@
 void calibrate();
 void sensorSetup();
 void printBinarySensorReadingsAnalog();
-
-void readData(int sensorReadings[]);
+String  getbinaryString();
 int getPosition(int sensorReadings[]);
 void readDataDigital(int sensorReadingsDigital[]);
 void readDataAnalog(int sensorReadingsAnalog[]);

@@ -2,13 +2,10 @@
 #define junction_h
 #include <Arduino.h>
 
-void TJunction();
-String plusJunction(String inputstr);
-void LRight(String inputstr);
-void LLeft(String inputstr);
-void fullWhite(String inputstr);
 void FinalDest();
 bool isStartDest();
-void lineBreak();
+
 void calibratemovement();
+void allJunctions(String inputstr,String prevstr,String prevstr2);
+bool isInverse(String inputstr);
 #endif

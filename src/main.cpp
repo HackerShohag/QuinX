@@ -9,7 +9,7 @@ int sonarTrig1 = 43;
 
 int sonarEcho2 = 37;
 int sonarTrig2 = 35;
-
+String prevstr="",prevstr2="";
 float Kp = 0.07; // related to the proportional control term;
               // change the value by trial-and-error (ex: 0.07).
 float Ki = 0.0008; // related to the integral control term;
@@ -85,6 +85,11 @@ void PID_control()
 
 void loop()
 {
+  String inputstr=getbinaryString();
+
+  allJunctions(inputstr,prevstr,prevstr2);
+  prevstr2=prevstr;
+  prevstr=inputstr;
   // printBinarySensorReadings();
   // forward();
   // delay(2000);

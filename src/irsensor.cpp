@@ -10,6 +10,7 @@ int sensorThresholds[numOfSensors] = {850, 850, 850, 850, 850, 850, 850, 850};
 int sensorThreshold = 850;
 int sensorReadingsAnalog[numOfSensors] = {0, 0, 0, 0, 0, 0, 0, 0};
 bool sensorReadingsDigital[numOfSensors] = {0, 0, 0, 0, 0, 0, 0, 0};
+String inputstr = "";
 
 void readDataAnalog(int sensorReadingsAnalog[])
 {
@@ -80,57 +81,60 @@ void printBinarySensorReadingsDigital()
     Serial.println(sensorThreshold);
     delay(250);
 }
+String  getbinaryString(){
 
+    inputstr = "";
+    
+    for (int i = 0; i < numOfSensors; i++)
+    {
+        if (sensorReadingsAnalog[i] > sensorThreshold)
+        {
+            inputstr += '1';
+        }
+        else
+            inputstr += '0';
+    }
+     for (int i = 0; i < numOfSensors / 2; i++)
+    {
+        char temp = inputstr[i];
+        inputstr[i] = inputstr[numOfSensors - i - 1];
+        inputstr[numOfSensors - i - 1] = temp;
+    }
+    Serial.println();
+    Serial.println(inputstr);
+    return inputstr;
+}
 int getPosition(int sensorReadingsAnalog[])
 {
     int position = 0;
     int v = 0;
-    String inputstr="";
+    
     readDataAnalog(sensorReadingsAnalog);
-    String prevstr="";
-    String prevstr2="";
-    for (int i = 0; i <numOfSensors; i++)
+
+    for (int i = 0; i < numOfSensors; i++)
     {
         if (sensorReadingsAnalog[i] > sensorThreshold)
         {
-            position +=i* 1000;
+            position += i * 1000;
             v++;
-            inputstr+='1';
         }
-        else inputstr+='0';
     }
-   Serial.println();
-    for(int i=0;i<numOfSensors/2;i++){
-        char temp=inputstr[i];
-        inputstr[i]=inputstr[numOfSensors-i-1];
-        inputstr[numOfSensors-i-1]=temp;
-
-    }
-    Serial.println(inputstr);
-
-    LRight(inputstr);
-    LLeft(inputstr);
-    if((prevstr=="00011000" || prevstr=="00111000" || prevstr=="00011100" || prevstr=="00111100" )&& inputstr=="00000000"){
-       lineBreak();
-    }
-    else if((prevstr=="00011000" || prevstr=="00111000" || prevstr=="00011100" || prevstr=="00111100" )&& inputstr=="11111111"){
-       plusJunction(inputstr);
-    }
-    else if(prevstr=="11111111" && inputstr=="00000000"){
-        TJunction();
-    }
-    else if(inputstr=="00000000"){
-        fullWhite(inputstr);
-    }
-    else if(prevstr=="11111111" && inputstr=="11111111" && prevstr2=="11111111"){
-       FinalDest();
-    }
-     
-    //  if(prevstr=="11111111" && inputstr=="00011000"){
-    //     calibratemovement();//if there's a plus junction and we need to calibrate 
+    
+   
+    // if (isInverse(inputstr))
+    // {
+    //     position = 0;
+    //     v = 0;
+    //     for (int i = 0; i < numOfSensors; i++)
+    //     {
+    //         if (sensorReadingsAnalog[i] < sensorThreshold)
+    //         {
+    //             position += i * 1000;
+    //             v++;
+    //         }
+    //     }
     // }
-    prevstr2=prevstr;
-    prevstr=inputstr;
+
 
     // Serial.print(" Position: ");
     // Serial.print(position);
@@ -142,8 +146,9 @@ int getPosition(int sensorReadingsAnalog[])
     // Serial.print(position/v);
     // }
     // Serial.println();
-     if(v==1 && position==0)   return 250;
-    if (v==0) return 0;
-    return position/v;
-    
+    if (v == 1 && position == 0)
+        return 250;
+    if (v == 0)
+        return 0;
+    return position / v;
 }
