@@ -52,6 +52,7 @@ void allJunctions(String inputstr, String prevstr, String prevstr2)
         // turnLeft();
         // turnRight();
         hardBrake(150);
+        
     }
     else if (prevstr == "11111111" && inputstr == "00000000")
     {

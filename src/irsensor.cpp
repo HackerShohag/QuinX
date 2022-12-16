@@ -82,12 +82,13 @@ void printBinarySensorReadingsDigital()
     delay(250);
 }
 String  getbinaryString(){
-
+    int sensorRead[8];
+    readDataAnalog(sensorRead);
     inputstr = "";
     
     for (int i = 0; i < numOfSensors; i++)
     {
-        if (sensorReadingsAnalog[i] > sensorThreshold)
+        if (sensorRead[i] > sensorThreshold)
         {
             inputstr += '1';
         }
