@@ -2,6 +2,7 @@
 #include "junction.h"
 #include "motor.h"
 #include "irsensor.h"
+#include "sonar.h"
 
 String s1 = "00011111";
 String s2 = "00111111";
@@ -42,6 +43,24 @@ void allJunctions(String inputstr, String prevstr, String prevstr2)
     {
         // LINE break
         forward();
+        hardBrake(150);
+        String inputstr2=getbinaryString();
+        ///NEED TO ADD IRSENSOR CODE
+        //Let k be ir reading boolean
+        bool k=0;
+        if(inputstr2!=s7 || k){
+            forward();
+            prevstr2=prevstr;
+            prevstr=inputstr2;
+        }
+        // else if(k){
+        //     while(k){
+        //         //k=haswall();
+        //     }
+        //     if(k==0){
+        //         forward();
+        //     }
+        // }
     }
     else if ((prevstr == "00011000" || prevstr == "00111000" || prevstr == "00011100" || prevstr == "00111100") && inputstr == "11111111")
     {
@@ -64,18 +83,18 @@ void allJunctions(String inputstr, String prevstr, String prevstr2)
         ///  calibrate if function
         if (cnt_tjunc == 1)
         {
-            turnLeft();
+           HardturnLeft();
         }
         else if (cnt_tjunc == 2)
         {
-            turnRight();
+           HardturnRight();
         }
     }
-    else if (inputstr == "00000000")
-    {
-        // fullWhite()
-        backward();
-    }
+    // else if (inputstr == "00000000")
+    // {
+    //     // fullWhite()
+    //     backward();
+    // }
     // else if(prevstr=="11111111" && inputstr=="11111111" && prevstr2=="11111111"){
     //    FinalDest();
     // }
