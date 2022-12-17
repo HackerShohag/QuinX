@@ -4,11 +4,11 @@
 #include "sonar.h"
 #include "junction.h"
 
-int sonarEcho1 = 41;
-int sonarTrig1 = 43;
+int sonarEcho1 = 31;
+int sonarTrig1 = 30;
 
-int sonarEcho2 = 37;
-int sonarTrig2 = 35;
+int sonarEcho2 = 33;
+int sonarTrig2 = 32;
 String prevstr="",prevstr2="";
 float Kp = 0.07; // related to the proportional control term;
               // change the value by trial-and-error (ex: 0.07).
@@ -23,10 +23,10 @@ int D;
 int lastError = 0;
 boolean onoff = false;
 
-const uint8_t maxspeeda = 120;
-const uint8_t maxspeedb = 120;
-const uint8_t basespeeda = 80;
-const uint8_t basespeedb = 80;
+const uint8_t maxspeeda = 150;
+const uint8_t maxspeedb = 150;
+const uint8_t basespeeda = 100;
+const uint8_t basespeedb = 100;
 
 void setup()
 {
@@ -85,24 +85,23 @@ void PID_control()
 
 void loop()
 {
-  String inputstr=getbinaryString();
+   String inputstr=getbinaryString();
 
-  allJunctions(inputstr,prevstr,prevstr2);
-  prevstr2=prevstr;
-  prevstr=inputstr;
-  // printBinarySensorReadings();
+  // bool cond=allJunctions(inputstr,prevstr,prevstr2);
+  // prevstr2=prevstr;
+  // prevstr=inputstr;
+ 
   // forward();
   // delay(2000);
-  // hardBrake();
+  // hardBrake(150);
   // delay(5000);
   //printBinarySensorReadingsAnalog();
-  // printBinarySensorReadingsDigital();
-  // Serial.print("Distance 1: ");
+  // Serial.print("Distance 1: ");//LEFT
   // Serial.print(getDistance(sonarEcho1, sonarTrig1));
    
-  // Serial.print("\tDistance 2: ");
+  // Serial.print("\tDistance 2: ");//RIGHT
   // Serial.print(getDistance(sonarEcho2, sonarTrig2));
   // Serial.println();
   // delay(250);
-  PID_control();
+  //if(cond==0)PID_control();
 }
