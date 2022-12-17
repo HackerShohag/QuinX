@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "sonar.h"
 
+
+
 long duration; // variable for the duration of sound wave travel
 int distance;  // variable for the distance measurement
 
@@ -9,7 +11,13 @@ void setupSonar(int echoPin, int trigPin)
     pinMode(trigPin, OUTPUT); // Sets the trigPin as an OUTPUT
     pinMode(echoPin, INPUT);  // Sets the echoPin as an INPUT
 }
-
+int haswall(int echoPin, int trigPin){
+    int m=getDistance(echoPin,trigPin);
+    if(m>0 && m<30){
+        return 1;
+    }
+    return 0;
+}
 int getDistance(int echoPin, int trigPin)
 {
     digitalWrite(trigPin, LOW);

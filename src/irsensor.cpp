@@ -66,7 +66,7 @@ void printBinarySensorReadingsAnalog()
         Serial.print(" ");
     }
     Serial.print("\tThreshold: ");
-    Serial.print(sensorThreshold);
+    Serial.println(sensorThreshold);
     delay(250);
 }
 

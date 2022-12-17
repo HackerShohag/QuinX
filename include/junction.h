@@ -3,9 +3,9 @@
 #include <Arduino.h>
 
 void FinalDest();
-bool isStartDest();
+//bool isStartDest();
 
 void calibratemovement();
-void allJunctions(String inputstr,String prevstr,String prevstr2);
+bool allJunctions(String inputstr,String prevstr,String prevstr2);
 bool isInverse(String inputstr);
 #endif

@@ -1,5 +1,6 @@
 #ifndef _IR
 #define _IR
+#include <string.h>
 
 void calibrate();
 void sensorSetup();
