@@ -24,7 +24,7 @@ int D;
 
 int lastError = 0;
 boolean onoff = false;
-
+bool st=0,en=0;
 const uint8_t maxspeeda = 150;
 const uint8_t maxspeedb = 150;
 const uint8_t basespeeda = 100;
@@ -86,6 +86,7 @@ void PID_control()
 }
 
 void loop(){
+  int cnt=0;
     if(fk==0){
         fk=1;
         for(int i=0;i<10;i++){
@@ -97,8 +98,28 @@ void loop(){
     for(int i=1;i<10;i++){
         strarray[i]=strarray[i-1];
     }
+
     strarray[0]=inputstr;
-   if(inputstr=="00000000"){
+
+    for(int i=0;i<10;i++){
+        if(strarray[i]=="11111111"){
+          cnt++;
+        }
+        else break;
+      }
+      //Cnt need to be calibrated
+    if(cnt>5 && st==0){
+      //START
+      forward();
+      delay(150);
+      st=1;
+    }
+    else if(cnt>6 && st==1){
+      //END
+      stop();
+      delay(2000);
+    }
+   else if(inputstr=="00000000"){
       stop();
       bool m=0;
       for(int i=1;i<10;i++){
@@ -140,7 +161,7 @@ void loop(){
       if(m==0){
         //Dead END!!
         backward();
-
+        delay(150);
         stop();    
       }
       else PID_control();
