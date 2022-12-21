@@ -45,8 +45,6 @@ void setup()
   stop(); // stop the motors
 }
 
-int mtrl = 0, mtrr = 0;
-
 void PID_control()
 {
   int sensorData[8];
@@ -81,21 +79,70 @@ void PID_control()
   {
     motorspeedb = 0;
   }
-  mtrl = motorspeeda;
-  mtrr = motorspeedb;
-//   runMotor(motorspeeda, motorspeedb);
+
+  runMotor(motorspeeda, motorspeedb);
 }
 
 void loop(){
    String inputstr=getbinaryString();
 //    //bool cond=allJunctions(inputstr,prevstr,prevstr2);
 
-    while (inputstr=="00000000") {
-        inputstr=getbinaryString();
-        runMotor(mtrl, mtrr);
+   if(inputstr=="00000000"){
+      stop();
+         if(prevstr[7]=='1'){
+         Serial.println("turning Hard Left");
+        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+            HardturnLeft(100);
+            //HardturnRight(100);
+            //stop();
+          //  inputstr=getbinaryString();
+        // }
+         
+        }
+      else if(prevstr2[7]=='1'){
+         Serial.println("turning Hard Left");
+        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+            HardturnLeft(100);
+           // HardturnRight(100);
+           // stop();
+          //  inputstr=getbinaryString();
+        // }
+         
+        }
+        else if(prevstr == "11111100" || prevstr == "11111000" || prevstr == "11110000" || prevstr == "11100000" ||  prevstr == "11000000"  || prevstr == "10000000" ){
+         Serial.println("turning Hard Right");
+        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+            //HardturnLeft(100);
+            HardturnRight(100);
+            //stop();
+          //  inputstr=getbinaryString();
+        //}
+         
+        }
+         else if(prevstr2 == "11111100" || prevstr2 == "11111000" || prevstr2 == "11110000" || prevstr2 == "11100000" ||  prevstr2 == "11000000"  || prevstr2 == "10000000" ){
+        Serial.println("turning Hard Right");
+        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+            //HardturnLeft(100);
+            HardturnRight(100);
+           // stop();
+          //  inputstr=getbinaryString();
+        // }
+         
+        }
+        else if( prevstr == "00011000" ||  prevstr == "00001100"  || prevstr == "00110000" || prevstr == "00001111"){
+         forward();
+          //stop();
+         
+        }
+         else PID_control();
+       // else {forward();}       
     }
-    PID_control();
-    runMotor(mtrl, mtrr);
+    // else if (inputstr=="11111111"){
+    //     forward();
+    // }
+
+
+  else PID_control();
 
   prevstr2=prevstr;
   prevstr=inputstr;
