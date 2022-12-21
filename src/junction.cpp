@@ -34,14 +34,38 @@ bool allJunctions(String inputstr, String prevstr, String prevstr2)
     //     //hardBrake(150);
     // }
     // else 
-    if( inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
-         Serial.println("turning right at Lright");
-        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
-            HardturnRight();
-          //  inputstr=getbinaryString();
-        // }
-          f=1;
-    }
+    // if(inputstr=="00000000"){
+    //     stop();
+    //      if( prevstr == "00000110" ||  prevstr == "00000011"  || prevstr == "00000001" ){
+    //      Serial.println("turning right at Lright");
+    //     // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+    //         HardturnRight();
+    //       //  inputstr=getbinaryString();
+    //     // }
+    //       f=1;
+    //     }
+    //     else if( prevstr == "01100000" ||  prevstr == "11000000"  || prevstr == "10000000" ){
+    //      Serial.println("turning right at Lright");
+    //     // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+    //         HardturnRight();
+    //       //  inputstr=getbinaryString();
+    //     // }
+    //       f=1;
+    //     }
+    //     else {forward();}
+    //     f=1;
+    // }
+    // else if (inputstr=="11111111"){
+    //     forward();
+    // }
+    // if( prevstr == "00000111" ||  prevstr == "00000011"  || prevstr == "00000001" ){
+    //      Serial.println("turning right at Lright");
+    //     // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
+    //         HardturnRight();
+    //       //  inputstr=getbinaryString();
+    //     // }
+    //       f=1;
+    // }
     //to turn 90 degree left
     // else if (inputstr == s4 || inputstr == s5 || inputstr == s6)
     // {
@@ -50,59 +74,59 @@ bool allJunctions(String inputstr, String prevstr, String prevstr2)
     //     turnLeft();
     //     //hardBrake(150);
     // }
-    else if(inputstr == "11110000" || inputstr == "11100000" || inputstr == "11000000" || inputstr == "1000000"){
-         Serial.println("turning hard Left at LLeft");
-        //hardBrake(10);
-        HardturnLeft();
-         f=1;
+    // else if(inputstr == "11110000" || inputstr == "11100000" || inputstr == "11000000" || inputstr == "1000000"){
+    //      Serial.println("turning hard Left at LLeft");
+    //     //hardBrake(10);
+    //     HardturnLeft();
+    //      f=1;
 
-    }
-    //  if(prevstr=="11111111" && inputstr=="00011000"){
-    //     calibratemovement();//if there's a plus junction and we need to calibrate
     // }
+    // //  if(prevstr=="11111111" && inputstr=="00011000"){
+    // //     calibratemovement();//if there's a plus junction and we need to calibrate
+    // // }
 
-    else if ((prevstr == "00011000" || prevstr == "00111000" || prevstr == "00011100" || prevstr == "00111100") && inputstr == "00000000")
-    {
-        // LINE break
-        forward();
-        hardBrake(150);
-        String inputstr2=getbinaryString();
-        ///NEED TO ADD IRSENSOR CODE
-        //Let k be ir reading boolean
-        bool k=0;
-        bool k2=0;
+    // else if ((prevstr == "00011000" || prevstr == "00111000" || prevstr == "00011100" || prevstr == "00111100") && inputstr == "00000000")
+    // {
+    //     // LINE break
+    //     forward();
+    //     hardBrake(150);
+    //     String inputstr2=getbinaryString();
+    //     ///NEED TO ADD IRSENSOR CODE
+    //     //Let k be ir reading boolean
+    //     bool k=0;
+    //     bool k2=0;
 
-        k=haswall(31,30);
-        k2=haswall(33,32);
+    //     k=haswall(31,30);
+    //     k2=haswall(33,32);
 
-        if(inputstr2!=s7){
-            forward();
-            prevstr2=prevstr;
-            prevstr=inputstr2;
-        }
-        else if(k && k2){
-            while(k && k2){
-                int dist1=getDistance(31,30);
-                int dist2=getDistance(31,30);
-                int mid=(dist1+dist2)/2;
-                if(dist1==mid){
-                    forward();
-                }
-                else if(dist1>mid){
-                    turnLeft();
-                }
-                else{
-                    turnRight();
-                }
-                 k=haswall(31,30);
-                k2=haswall(33,32);
+    //     if(inputstr2!=s7){
+    //         forward();
+    //         prevstr2=prevstr;
+    //         prevstr=inputstr2;
+    //     }
+    //     else if(k && k2){
+    //         while(k && k2){
+    //             int dist1=getDistance(31,30);
+    //             int dist2=getDistance(31,30);
+    //             int mid=(dist1+dist2)/2;
+    //             if(dist1==mid){
+    //                 forward();
+    //             }
+    //             else if(dist1>mid){
+    //                 turnLeft();
+    //             }
+    //             else{
+    //                 turnRight();
+    //             }
+    //              k=haswall(31,30);
+    //             k2=haswall(33,32);
 
-            }
-            if(k==0 || k2==0){
-                forward();
-            }
-        }
-    }
+    //         }
+    //         if(k==0 || k2==0){
+    //             forward();
+    //         }
+    //     }
+    //}
     // else if ((prevstr == "00011000" || prevstr == "00111000" || prevstr == "00011100" || prevstr == "00111100") && inputstr == "11111111")
     // {
     //     // plusJunction(inputstr);

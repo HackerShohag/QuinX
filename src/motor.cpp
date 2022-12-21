@@ -77,7 +77,7 @@ void turnRight()
     digitalWrite(motor2pin2, LOW);
 }
 
-void HardturnRight()
+void HardturnRight(int delayval)
 {
     // PWM pin for speed control
     digitalWrite(ena, HIGH);
@@ -89,9 +89,10 @@ void HardturnRight()
 
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
+    delay(delayval);
 }
 
-void HardturnLeft()
+void HardturnLeft(int delayval)
 {
     // PWM pin for speed control
     digitalWrite(ena, HIGH);
@@ -103,6 +104,7 @@ void HardturnLeft()
 
     digitalWrite(motor2pin1, HIGH);
     digitalWrite(motor2pin2, LOW);
+    delay(delayval);
 }
 
 void stop()

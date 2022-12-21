@@ -7,7 +7,7 @@ const int numOfSensors = 8;
 int max = 0, min = 1200;
 int sensorPins[numOfSensors] = {A0, A1, A2, A3, A4, A5, A6, A7};
 int sensorThresholds[numOfSensors] = {850, 850, 850, 850, 850, 850, 850, 850};
-int sensorThreshold = 850;
+int sensorThreshold = 840;
 int sensorReadingsAnalog[numOfSensors] = {0, 0, 0, 0, 0, 0, 0, 0};
 bool sensorReadingsDigital[numOfSensors] = {0, 0, 0, 0, 0, 0, 0, 0};
 String inputstr = "";
@@ -88,7 +88,7 @@ String  getbinaryString(){
     
     for (int i = 0; i < numOfSensors; i++)
     {
-        if (sensorRead[i] > sensorThreshold)
+        if (sensorRead[i]>sensorThreshold)
         {
             inputstr += '1';
         }
@@ -114,7 +114,7 @@ int getPosition(int sensorReadingsAnalog[])
 
     for (int i = 0; i < numOfSensors; i++)
     {
-        if (sensorReadingsAnalog[i] > sensorThreshold)
+        if (sensorReadingsAnalog[i]>sensorThreshold)
         {
             position += i * 1000;
             v++;
@@ -147,8 +147,8 @@ int getPosition(int sensorReadingsAnalog[])
     // Serial.print(position/v);
     // }
     // Serial.println();
-    if (v == 1 && position == 0)
-        return 250;
+    // if (v == 1 && position == 0)
+    //     return 250;
     if (v == 0)
         return 0;
     return position / v;
