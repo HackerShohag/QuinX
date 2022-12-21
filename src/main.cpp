@@ -91,6 +91,7 @@ void loop(){
 //    //bool cond=allJunctions(inputstr,prevstr,prevstr2);
 
     while (inputstr=="00000000") {
+        hardBrake(100);
         inputstr=getbinaryString();
         runMotor(mtrl, mtrr);
     }
