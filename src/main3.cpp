@@ -9,8 +9,9 @@ int sonarTrig1 = 30;
 
 int sonarEcho2 = 33;
 int sonarTrig2 = 32;
-String prevstr="",prevstr2="",prevstr3="",prevstr4="",prevstr5="",prevstr6="",prevstr7="",prevstr8="";
 
+String strarray[10];
+bool fk=0;
 float Kp = 0.07; // related to the proportional control term;
               // change the value by trial-and-error (ex: 0.07).
 float Ki = 0.0008; // related to the integral control term;
@@ -85,59 +86,65 @@ void PID_control()
 }
 
 void loop(){
+    if(fk==0){
+        fk=1;
+        for(int i=0;i<10;i++){
+        strarray[i]="11111111";
+        }
+    }
    String inputstr=getbinaryString();
 //    //bool cond=allJunctions(inputstr,prevstr,prevstr2);
-
+    for(int i=1;i<10;i++){
+        strarray[i]=strarray[i-1];
+    }
+    strarray[0]=inputstr;
    if(inputstr=="00000000"){
       stop();
-         if(prevstr == "11111100" || prevstr == "11111000" || prevstr == "11110000" || prevstr == "11100000" ||  prevstr == "11000000"  || prevstr == "10000000" ){
-         Serial.println("turning Hard Left");
+      bool m=0;
+      for(int i=1;i<10;i++){
+        m=1;
+         if(strarray[i] == "11111100" || strarray[i] == "11111000" || strarray[i] == "11110000" || strarray[i] == "11100000" ||  strarray[i] == "11000000"  || strarray[i] == "10000000" ){
+         Serial.println("turning Hard Right");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             //HardturnLeft(100);
-            HardturnRight(100);
+            HardturnRight(120);
+            break;
             //stop();
           //  inputstr=getbinaryString();
         // }
          
         }
-        else if(prevstr2 == "11111100" || prevstr2 == "11111000" || prevstr2 == "11110000" || prevstr2 == "11100000" ||  prevstr2 == "11000000"  || prevstr2 == "10000000" ){
-         Serial.println("turning Hard Left");
-        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
-            //HardturnLeft(100);
-            HardturnRight(100);
-           // stop();
-          //  inputstr=getbinaryString();
-        // }
-         
-        }
-        else if(prevstr == "00111111" || prevstr == "00011111" || prevstr == "00001111" || prevstr == "00000111" ||  prevstr == "00000011"  || prevstr == "00000001" ){
+        else if(strarray[i]  == "00111111" || strarray[i]  == "00011111" || strarray[i]  == "00001111" || strarray[i]  == "00000111" ||  strarray[i]  == "00000011"  || strarray[i]  == "00000001" ){
          Serial.println("turning Hard Right");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
-            HardturnLeft(100);
+            HardturnLeft(120);
+            break;
             //HardturnRight(100);
             //stop();
           //  inputstr=getbinaryString();
         //}
          
         }
-        else if(prevstr2 == "00111111" || prevstr2 == "00011111" || prevstr2 == "00001111" || prevstr2 == "00000111" ||  prevstr2 == "00000011"  || prevstr2 == "00000001" ){
-        Serial.println("turning Hard Right");
-        // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
-            HardturnLeft(100);
-            //\HardturnRight(100);
-           // stop();
-          //  inputstr=getbinaryString();
-        // }
-         
-        }
-        else if( prevstr == "00011000" ||  prevstr == "00001100"  || prevstr == "00110000"){
+        else if( strarray[i] == "00011000" || strarray[i] == "00001100"  || strarray[i] == "00110000"){
          //LINE BREAK
          forward();
+         delay(150);
           //stop();
+          break;
          
         }
-         else PID_control();
-       // else {forward();}       
+
+        else m=0;
+      }
+
+      if(m==0){
+        //Dead END!!
+        backward();
+
+        stop();    
+      }
+      else PID_control();
+           
     }
     // else if (inputstr=="11111111"){
     //     forward();
@@ -146,9 +153,6 @@ void loop(){
 
   else PID_control();
 
-  prevstr2=prevstr;
-  prevstr=inputstr;
-  
 //    prevstr2=prevstr;
 //    prevstr=inputstr;
     // forward();
@@ -157,5 +161,4 @@ void loop(){
     // stop();
     //  delay(1000);
    //printBinarySensorReadingsDigital();
-
 }
