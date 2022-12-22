@@ -53,7 +53,7 @@ void PID_control()
   int position = getPosition(sensorData); // read the current position
   // Serial.print("\t\t\t\t\tPosition: ");
   // Serial.println(position);
-  int error = 3500 - position;            // 3500 is the ideal position (the centre)
+  int error = 2000 - position;            // 3500 is the ideal position (the centre)
 
   P = error;
   I = I + error;
@@ -90,7 +90,7 @@ void loop(){
     if(fk==0){
         fk=1;
         for(int i=0;i<10;i++){
-        strarray[i]="11111111";
+        strarray[i]="11111";
         }
     }
    String inputstr=getbinaryString();
@@ -102,7 +102,7 @@ void loop(){
     strarray[0]=inputstr;
 
     for(int i=0;i<10;i++){
-        if(strarray[i]=="11111111"){
+        if(strarray[i]=="11111"){
           cnt++;
         }
         else break;
@@ -119,12 +119,12 @@ void loop(){
       stop();
       delay(2000);
     }
-   else if(inputstr=="00000000"){
+   else if(inputstr=="00000"){
       stop();
       bool m=0;
       for(int i=1;i<10;i++){
         m=1;
-         if(strarray[i] == "11111100" || strarray[i] == "11111000" || strarray[i] == "11110000" || strarray[i] == "11100000" ||  strarray[i] == "11000000"  || strarray[i] == "10000000" ){
+         if(strarray[i] == "11100" || strarray[i] == "11000" || strarray[i] == "10000" ){
          Serial.println("turning Hard Right");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             //HardturnLeft(100);
@@ -135,8 +135,8 @@ void loop(){
         // }
          
         }
-        else if(strarray[i]  == "00111111" || strarray[i]  == "00011111" || strarray[i]  == "00001111" || strarray[i]  == "00000111" ||  strarray[i]  == "00000011"  || strarray[i]  == "00000001" ){
-         Serial.println("turning Hard Right");
+        else if(strarray[i]  == "00111" || strarray[i]  == "00011" || strarray[i]  == "00001"){
+         Serial.println("turning Hard Left");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             HardturnLeft(120);
             break;
@@ -146,7 +146,7 @@ void loop(){
         //}
          
         }
-        else if( strarray[i] == "00011000" || strarray[i] == "00001100"  || strarray[i] == "00110000"){
+        else if( strarray[i] == "00100" || strarray[i] == "00010"  || strarray[i] == "01000"){
          //LINE BREAK
          forward();
          delay(150);

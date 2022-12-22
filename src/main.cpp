@@ -52,7 +52,7 @@ void PID_control()
   int position = getPosition(sensorData); // read the current position
   // Serial.print("\t\t\t\t\tPosition: ");
   // Serial.println(position);
-  int error = 3500 - position;            // 3500 is the ideal position (the centre)
+  int error = 2000 - position;            // 3500 is the ideal position (the centre)
 
   P = error;
   I = I + error;
@@ -88,9 +88,9 @@ void loop(){
    String inputstr=getbinaryString();
 //    //bool cond=allJunctions(inputstr,prevstr,prevstr2);
 
-   if(inputstr=="00000000"){
+   if(inputstr=="00000"){
       stop();
-         if(prevstr == "11111100" || prevstr == "11111000" || prevstr == "11110000" || prevstr == "11100000" ||  prevstr == "11000000"  || prevstr == "10000000" ){
+         if(prevstr == "11100" || prevstr == "11000" || prevstr == "10000" ){
          Serial.println("turning Hard Left");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             //HardturnLeft(100);
@@ -100,7 +100,7 @@ void loop(){
         // }
          
         }
-        else if(prevstr2 == "11111100" || prevstr2 == "11111000" || prevstr2 == "11110000" || prevstr2 == "11100000" ||  prevstr2 == "11000000"  || prevstr2 == "10000000" ){
+        else  if(prevstr2 == "11100" || prevstr2 == "11000" || prevstr2 == "10000" ){
          Serial.println("turning Hard Left");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             //HardturnLeft(100);
@@ -110,7 +110,7 @@ void loop(){
         // }
          
         }
-        else if(prevstr == "00111111" || prevstr == "00011111" || prevstr == "00001111" || prevstr == "00000111" ||  prevstr == "00000011"  || prevstr == "00000001" ){
+        else if(prevstr == "00111" || prevstr == "00011" || prevstr == "00001" ){
          Serial.println("turning Hard Right");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             HardturnLeft(100);
@@ -120,7 +120,7 @@ void loop(){
         //}
          
         }
-        else if(prevstr2 == "00111111" || prevstr2 == "00011111" || prevstr2 == "00001111" || prevstr2 == "00000111" ||  prevstr2 == "00000011"  || prevstr2 == "00000001" ){
+        else  if(prevstr2 == "00111" || prevstr2 == "00011" || prevstr2 == "00001" ){
         Serial.println("turning Hard Right");
         // while(inputstr == "00001111" || inputstr == "00000111" || inputstr == "00000011" || inputstr == "00000001" || inputstr == "01111111" || inputstr == "00111111" || inputstr == "00011111" ){
             HardturnLeft(100);
@@ -130,7 +130,7 @@ void loop(){
         // }
          
         }
-        else if( prevstr == "00011000" ||  prevstr == "00001100"  || prevstr == "00110000"){
+        else if( prevstr == "00100" ||  prevstr == "00010"  || prevstr == "01000"){
          //LINE BREAK
          forward();
           //stop();

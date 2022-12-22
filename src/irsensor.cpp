@@ -3,13 +3,13 @@
 #include "junction.h"
 #include <string.h>
 
-const int numOfSensors = 8;
+const int numOfSensors = 5;
 int max = 0, min = 1200;
-int sensorPins[numOfSensors] = {A0, A1, A2, A3, A4, A5, A6, A7};
-int sensorThresholds[numOfSensors] = {850, 850, 850, 850, 850, 850, 850, 850};
+int sensorPins[numOfSensors] = {A0, A1, A2, A3, A4};
+int sensorThresholds[numOfSensors] = {850, 850, 850, 850, 850};
 int sensorThreshold = 840;
-int sensorReadingsAnalog[numOfSensors] = {0, 0, 0, 0, 0, 0, 0, 0};
-bool sensorReadingsDigital[numOfSensors] = {0, 0, 0, 0, 0, 0, 0, 0};
+int sensorReadingsAnalog[numOfSensors] = {0, 0, 0, 0, 0};
+bool sensorReadingsDigital[numOfSensors] = {0, 0, 0, 0, 0};
 String inputstr = "";
 
 void readDataAnalog(int sensorReadingsAnalog[])
@@ -82,7 +82,7 @@ void printBinarySensorReadingsDigital()
     delay(250);
 }
 String  getbinaryString(){
-    int sensorRead[8];
+    int sensorRead[5];
     readDataAnalog(sensorRead);
     inputstr = "";
     
